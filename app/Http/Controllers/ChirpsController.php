@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers;
-use Illuminate\Http\Response;
+use App\Http\Controllers\RedirectResponse;
 use App\Models\Chirps;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -29,13 +29,13 @@ class ChirpsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $validated=$request->validate([
             'message'=>'required|string|max:255',
         ]);
         $request->user()->chirps()->create($validated);
-        return redirect(route('chirps.index'));
+        return redirect()->route('chirps.index');
     }
     /**
      * Display the specified resource.
@@ -69,7 +69,7 @@ class ChirpsController extends Controller
  
         $chirp->update($validated);
  
-        return redirect(route('chirps.index'));
+        return redirect()->route('chirps.index');
     }
 
     /**
@@ -82,6 +82,6 @@ class ChirpsController extends Controller
  
         $chirp->delete();
  
-        return redirect(route('chirps.index'));
+        return redirect()->route('chirps.index');
     }
 }
